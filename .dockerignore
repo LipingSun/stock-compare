@@ -90,5 +90,4 @@ ENV/
 .ropeproject
 
 .idea
-stock-match-pattern-component.iml
 .git/
