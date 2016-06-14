@@ -1,0 +1,11 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "liping511/stock-compare-component"
+  },
+  "Ports": [
+    {
+      "ContainerPort": 80
+    }
+  ]
+}

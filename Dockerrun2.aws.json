@@ -1,0 +1,11 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "stock-compare",
+      "image": "liping511/stock-match-pattern-component",
+      "essential": true,
+      "memory": 64
+    }
+  ]
+}
