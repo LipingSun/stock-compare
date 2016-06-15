@@ -11,7 +11,7 @@ BASE_URL = 'http://dev.markitondemand.com/MODApis/Api/v2/InteractiveChart'
 QUEUE_URL = 'https://sqs.us-west-1.amazonaws.com/497100832806/stock-compare-queue'
 # RESULT_URL = 'http://192.168.1.103:2000/compare'
 # RESULT_URL = 'http://stock-data-component.us-west-2.elasticbeanstalk.com/compare'
-RESULT_URL = 'stock-data.us-west-1.elasticbeanstalk.com/compare'
+RESULT_URL = 'http://stock-data.us-west-1.elasticbeanstalk.com/compare'
 
 
 class MatchServer(object):
