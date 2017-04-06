@@ -5,13 +5,11 @@ import boto3
 import time
 from botocore.handlers import disable_signing
 
-
 BASE_URL = 'http://dev.markitondemand.com/MODApis/Api/v2/InteractiveChart'
-# QUEUE_URL = 'https://sqs.us-west-2.amazonaws.com/557989321320/stock-compare-queue'
 QUEUE_URL = 'https://sqs.us-west-1.amazonaws.com/497100832806/stock-compare-queue'
-# RESULT_URL = 'http://192.168.1.103:2000/compare'
-# RESULT_URL = 'http://stock-data-component.us-west-2.elasticbeanstalk.com/compare'
 RESULT_URL = 'http://stock-data.us-west-1.elasticbeanstalk.com/compare'
+# RESULT_URL = 'http://127.0.0.1:2000/compare'
+# RESULT_URL = 'http://9ce54e83.ngrok.io/compare'
 
 
 class MatchServer(object):
@@ -45,9 +43,9 @@ class MatchServer(object):
         data_b['Elements'][0]['DataSeries']['close']['values'] = \
             data_b['Elements'][0]['DataSeries']['close']['values'][match_range[0]:match_range[1]]
         result = {
-                    'stockA': data_a,
-                    'stockB': data_b
-                  }
+            'stockA': data_a,
+            'stockB': data_b
+        }
         # vals_b = data_b['Elements'][0]['DataSeries']['close']['values']
         # plt.plot(range(len(vals_a)), vals_a, 'r', range(len(vals_b)), vals_b, 'b')
         # plt.show()
@@ -57,14 +55,14 @@ class MatchServer(object):
         # B should be longer than A
         min_dev = float('Inf')
         min_head = 0
-        for i in xrange(len(arrB)-len(arrA)+1):
+        for i in xrange(len(arrB) - len(arrA) + 1):
             nmA = self.normalize(arrA)
-            nmB = self.normalize(arrB[i:i+len(arrA)])
+            nmB = self.normalize(arrB[i:i + len(arrA)])
             dev = self.calDev(nmA, nmB)
             if dev < min_dev:
                 min_head = i
                 min_dev = dev
-        return [min_head, min_head+len(arrA)]
+        return [min_head, min_head + len(arrA)]
 
     def calDev(self, arrA, arrB):
         acc_dev = 0
@@ -75,7 +73,7 @@ class MatchServer(object):
     def normalize(self, arr):
         mx = max(arr)
         mn = min(arr)
-        return [(elem - mn)/(mx - mn) for elem in arr]
+        return [(elem - mn) / (mx - mn) for elem in arr]
 
     def getRequestFromQueue(self, Q):
         msgs = Q.receive_messages()
@@ -99,10 +97,9 @@ class MatchServer(object):
         q = sqs.Queue(url=QUEUE_URL)
         while True:
             self.getRequestFromQueue(q)
-            time.sleep(1)
+            # time.sleep(1)
 
 
 if __name__ == "__main__":
     S = MatchServer()
     S.mainLoop()
-
